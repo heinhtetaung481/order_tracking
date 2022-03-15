@@ -38,6 +38,7 @@ jobs:
           - v1-dependencies-
 
       - run: composer update
+      - run: php artisan key:generate
       - run: php artisan migrate
 
       - save_cache:
