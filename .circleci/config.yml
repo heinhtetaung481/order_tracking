@@ -22,13 +22,13 @@ jobs:
       - checkout
 
       - run: sudo apt-get install -y libzip-dev
-      - run: sudo docker-php-ext-install zip
+      # - run: sudo docker-php-ext-install zip
       - run: sudo rm -rf /var/lib/apt/lists/*
       - run: sudo apt-get update
       - run: sudo apt-get install -y zlib1g-dev libicu-dev g++
-      - run: sudo docker-php-ext-configure intl
-      - run: sudo docker-php-ext-install intl
-      - run: sudo docker-php-ext-install pdo_mysql
+      # - run: sudo docker-php-ext-configure intl
+      # - run: sudo docker-php-ext-install intl
+      # - run: sudo docker-php-ext-install pdo_mysql
 
       # Download and cache dependencies
       - restore_cache:
