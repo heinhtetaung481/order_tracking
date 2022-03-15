@@ -38,7 +38,7 @@ jobs:
           - v1-dependencies-
 
       - run: composer update
-      - run: php artisan migrate --seed
+      - run: php artisan migrate
 
       - save_cache:
           paths:
