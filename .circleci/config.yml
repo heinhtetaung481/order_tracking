@@ -46,9 +46,8 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: ./vendor/bin/phpunit tests --bootstrap vendor/autoload.php
+      - run: php artisan test
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
