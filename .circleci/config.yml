@@ -13,7 +13,7 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: homestead
-          MYSQL_DATABASE: homestead
+          MYSQL_DATABASE: data_store
           MYSQL_HOST: 127.0.0.1
           MYSQL_ALLOW_EMPTY_PASSWORD: true
     # Add steps to the job
@@ -38,7 +38,7 @@ jobs:
           - v1-dependencies-
 
       - run: composer update
-      - run: php artisan migrate:refresh --seed
+      - run: php artisan migrate --seed
 
       - save_cache:
           paths:
