@@ -1,0 +1,56 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  laravel:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: circleci/php:8-apache-stretch-node-browsers
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: homestead
+          MYSQL_DATABASE: homestead
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+
+      - run: sudo apt-get install -y libzip-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo rm -rf /var/lib/apt/lists/*
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y zlib1g-dev libicu-dev g++
+      - run: sudo docker-php-ext-configure intl
+      - run: sudo docker-php-ext-install intl
+      - run: sudo docker-php-ext-install pdo_mysql
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: composer update
+      - run: php artisan migrate:refresh --seed
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      # run tests!
+      - run: ./vendor/bin/phpunit tests --bootstrap vendor/autoload.php
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  say-hello-workflow:
+    jobs:
+      - laravel
