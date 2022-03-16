@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DeliveryInformation;
 use Illuminate\Support\Facades\Route;
 use App\Models\Order;
 /*
@@ -19,4 +20,8 @@ Route::get('/', function () {
 
 Route::get('/order', function () {
     return Order::all();
+});
+
+Route::get('/delivery', function() {
+    return DeliveryInformation::all();
 });
