@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "f684a2d0-c359-426f-9409-5705f2842b2b",
+		"name": "order_tracking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA3Y2E0ZTM0OGJlYjg2MjEyMzVkZTciLCJpYXQiOjE2NDQ2ODY3MzMsImV4cCI6MTY0NDY4NzYzM30.qBb7t1jdRXQYZy_XSKg9IUfMlz7No-sKgty8sx9wwIs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"aTZg88qFyXYd1e5XEQUqt1\":{\n        \"timestamp\": \"2022-01-27 14:35:08\",\n        \"status\": \"processing\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order by key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/order/aTZg88qFyXYd1e5XEQUqt1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"order",
+						"aTZg88qFyXYd1e5XEQUqt1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get order by key and timestamp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/order/aTZg88qFyXYd1e5XEQUqt1?timestamp=2022-01-27 14:35:08",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"order",
+						"aTZg88qFyXYd1e5XEQUqt1"
+					],
+					"query": [
+						{
+							"key": "timestamp",
+							"value": "2022-01-27 14:35:08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all records",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/order/get_all_records",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"order",
+						"get_all_records"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
