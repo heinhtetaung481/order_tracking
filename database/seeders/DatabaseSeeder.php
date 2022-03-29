@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DeliveryInformation;
-use App\Models\Order;
+use App\Models\DataStore;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -17,10 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        DataStore::factory(10)->create();
         // DeliveryInformation::factory()->has(Order::factory())->count(20)->create();
-        Order::factory(10)->create()->each(function($order){
-            $order->deliveries()->saveMany(DeliveryInformation::factory(3)->create(['order_code' => $order->order_code]));
-        });
+        // Order::factory(10)->create()->each(function($order){
+        //     $order->deliveries()->saveMany(DeliveryInformation::factory(3)->create(['order_code' => $order->order_code]));
+        // });
     }
 }

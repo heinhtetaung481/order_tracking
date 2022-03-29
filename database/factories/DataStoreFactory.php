@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
  */
-class OrderFactory extends Factory
+class DataStoreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,9 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'order_code' => Str::random(20)
+            'key' => Str::random(5),
+            'value' => Str::random(10),
+            'timestamp' => time()
         ];
     }
 }

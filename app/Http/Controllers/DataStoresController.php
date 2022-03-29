@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\DeliveryInformation;
 use Illuminate\Http\Request;
-use App\Models\Order;
+use App\Models\DataStore;
 
-class OrdersController extends Controller
+class DataStoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return Order::with('deliveries')->get();
+        return DataStore::all('key', 'value', 'timestamp');
     }
 
     /**
@@ -25,24 +25,29 @@ class OrdersController extends Controller
      */
     public function create(Request $request)
     {
-        $request = $request->collect();
-
+        $data_store = DataStore::updateOrCreate([
+            "key" => $request->key,
+        ],[
+            "value" => $request->value,
+            "timestamp" => time()
+        ]);
+        return $data_store;
         // check if length of collection is more than one
-        if($request->count() !== 1){
-            return ["message" => "invalid request body length"];
-        }
+        // if($request->count() !== 1){
+        //     return ["message" => "invalid request body length"];
+        // }
 
-        foreach($request as $key => $value) {
-            $order_code = $key;
-            $data = $value;
-        }
+        // foreach($request as $key => $value) {
+        //     $order_code = $key;
+        //     $data = $value;
+        // }
 
-        $order = Order::firstOrCreate(['order_code' => $order_code]);
-        $delivery = $order->deliveries()->create($data);
+        // $order = Order::firstOrCreate(['order_code' => $order_code]);
+        // $delivery = $order->deliveries()->create($data);
 
-        return [
-            $order->order_code => $delivery
-        ];
+        // return [
+        //     $order->order_code => $delivery
+        // ];
     }
 
     /**
@@ -62,23 +67,15 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order, Request $request)
+    public function show(Request $request)
     {
+        $object = DataStore::where('key', $request->key)->first();
         if($request->has('timestamp')){
-            return $order->deliveries()->where('timestamp', strtotime($request->timestamp))->first();
+            $object = $object->versions->where('timestamp', $request->timestamp)->first();
         }
-        $last_delivery = $order->deliveries()->latest('timestamp')->first();
         return [
-            $order->order_code => $last_delivery
+            "value" => $object->value
         ];
-    }
-
-    /**
-     * Return value by the given key and timestamp
-     */
-
-    function showByTimestamp(Order $order, Request $request){
-        return $request->collect();
     }
 
     /**

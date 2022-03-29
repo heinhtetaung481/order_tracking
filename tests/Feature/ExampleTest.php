@@ -19,48 +19,39 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_api_order_post(){
-        $response = $this->json('POST', 'api/order', array(
-            "aTZg88qFyXYd1e5XEQUqt1" => [
-                "timestamp" => "2022-01-27 14:35:08",
-                "status" => "processing"
+    public function test_api_object_post(){
+        $response = $this->json('POST', 'api/object', array(
+            [
+                "key" => "Car",
+                "value" => "Green"
             ]
         ))->assertJsonStructure([
-            "aTZg88qFyXYd1e5XEQUqt1" => [
+            [
+                'key',
+                'value',
                 'timestamp',
-                'status',
-                'order_code',
-                'id'
+                'uid',
+                'vc_version_uid',
+                'vc_active'
                 ]
             ]);
     }
 
-    public function test_api_order_get(){
-        $this->json('GET', 'api/order/aTZg88qFyXYd1e5XEQUqt1')
+    public function test_api_object_get(){
+        $this->json('GET', 'api/order/Car')
             ->assertJsonStructure([
-                "aTZg88qFyXYd1e5XEQUqt1" => [
-                    'timestamp',
-                    'status',
-                    'order_code',
-                    'id'
-                    ]
-                ]);
+                'value'
+            ]);
     }
 
-    public function test_api_order_get_with_timestamp(){
+    public function test_api_get_all(){
         $this->json('GET', 'api/order/get_all_records')
             ->assertJsonStructure([
                 [
-                    'order_code',
-                    'deliveries' => [
-                        [
-                            'id',
-                            'order_code',
-                            'timestamp',
-                            'status'
-                        ]
-                    ]
+                    "key",
+                    "value",
+                    "timestamp"
                 ]
-                ]);
+            ]);
     }
 }

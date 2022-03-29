@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\DataStoresController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 //     return $order;
 // });
 
-Route::controller(OrdersController::class)->group(function () {
-    Route::post('/order', 'create');
-    Route::get('/order/get_all_records', 'index');
-    Route::get('/order/{order:order_code}', 'show');
+Route::controller(DataStoresController::class)->group(function () {
+    Route::post('/object', 'create');
+    Route::get('/object/get_all_records', 'index');
+    Route::get('/object/{key}', 'show');
 });

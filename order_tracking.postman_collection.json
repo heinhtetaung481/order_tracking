@@ -30,10 +30,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/order",
+					"raw": "http://heinhtetaung.info/api/order",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"heinhtetaung.info"
 					],
 					"path": [
 						"api",
@@ -49,10 +49,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/order/aTZg88qFyXYd1e5XEQUqt1",
+					"raw": "http://heinhtetaung.info/api/order/aTZg88qFyXYd1e5XEQUqt1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"heinhtetaung.info"
 					],
 					"path": [
 						"api",
@@ -69,10 +69,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/order/aTZg88qFyXYd1e5XEQUqt1?timestamp=2022-01-27 14:35:08",
+					"raw": "http://heinhtetaung.info/api/order/aTZg88qFyXYd1e5XEQUqt1?timestamp=2022-01-27 14:35:08",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"heinhtetaung.info"
 					],
 					"path": [
 						"api",
@@ -95,10 +95,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/order/get_all_records",
+					"raw": "http://heinhtetaung.info/api/order/get_all_records",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"heinhtetaung.info"
 					],
 					"path": [
 						"api",
