@@ -27,8 +27,6 @@ class ExampleTest extends TestCase
             "uid",
             "vc_version_uid",
             "vc_active",
-            "created_at",
-            "updated_at",
             "key",
             "value",
             "timestamp"
