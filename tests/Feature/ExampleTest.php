@@ -21,37 +21,33 @@ class ExampleTest extends TestCase
 
     public function test_api_object_post(){
         $response = $this->json('POST', 'api/object', array(
-            [
                 "key" => "Car",
                 "value" => "Green"
-            ]
         ))->assertJsonStructure([
-            [
-                'key',
-                'value',
-                'timestamp',
-                'uid',
-                'vc_version_uid',
-                'vc_active'
-                ]
-            ]);
+            "uid",
+            "vc_version_uid",
+            "vc_active",
+            "created_at",
+            "updated_at",
+            "key",
+            "value",
+            "timestamp"
+        ]);
     }
 
     public function test_api_object_get(){
-        $this->json('GET', 'api/order/Car')
+        $this->json('GET', 'api/object/Car')
             ->assertJsonStructure([
                 'value'
             ]);
     }
 
     public function test_api_get_all(){
-        $this->json('GET', 'api/order/get_all_records')
-            ->assertJsonStructure([
-                [
-                    "key",
-                    "value",
-                    "timestamp"
-                ]
-            ]);
+        $this->json('GET', 'api/object/get_all_records')
+            ->assertJsonStructure([[
+                "key",
+                "value",
+                "timestamp"
+            ]]);
     }
 }
