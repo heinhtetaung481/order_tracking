@@ -25,11 +25,12 @@ class DataStoresController extends Controller
      */
     public function create(Request $request)
     {
+        $timestamp = time();
         $data_store = DataStore::updateOrCreate([
             "key" => $request->key,
         ],[
             "value" => $request->value,
-            "timestamp" => time()
+            "timestamp" => $timestamp
         ]);
         return $data_store;
         // check if length of collection is more than one

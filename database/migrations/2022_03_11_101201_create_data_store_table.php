@@ -17,12 +17,12 @@ return new class extends Migration
             // $table->integer('uid')->autoIncrement()->change();
             $table->string('key')->unique();
             $table->string('value');
-            $table->string('timestamp');
+            $table->integer('timestamp');
         }, function (Blueprint $table) {
             // $table->integer('id');
             $table->string('key');
             $table->string('value');
-            $table->string('timestamp');
+            $table->integer('timestamp');
         });
     }
 

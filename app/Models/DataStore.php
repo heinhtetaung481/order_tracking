@@ -23,11 +23,11 @@ class DataStore extends BaseModel
     // public function deliveries(){
     //     return $this->hasMany(DeliveryInformation::class, 'order_code', 'order_code');
     // }
-    public function timestamp(): Attribute
-    {
-        return Attribute::make(
-            // get: fn ($value) => gmdate("d-m-Y\TH:i:s\Z", $value),
-            set: fn ($value) => strtotime($value),
-        );
-    }
+    // public function timestamp(): Attribute
+    // {
+    //     return Attribute::make(
+    //         // get: fn ($value) => gmdate("d-m-Y\TH:i:s\Z", $value),
+    //         set: fn ($value) => strtotime($value),
+    //     );
+    // }
 }
