@@ -21,7 +21,7 @@ class ExampleTest extends TestCase
 
     public function test_api_object_post(){
         $response = $this->json('POST', 'api/object', array(
-                "key" => "Phone",
+                "key" => "Car",
                 "value" => "Green"
         ))->assertJsonStructure([
             "uid",
