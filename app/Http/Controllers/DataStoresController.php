@@ -25,14 +25,16 @@ class DataStoresController extends Controller
      */
     public function create(Request $request)
     {
-        $timestamp = time();
-        $data_store = DataStore::updateOrCreate([
-            "key" => $request->key,
-        ],[
-            "value" => $request->value,
-            "timestamp" => $timestamp
-        ]);
-        return $data_store;
+        foreach ($request->except('_token') as $key => $value) {
+            $timestamp = time();
+            $data_store = DataStore::updateOrCreate([
+                "key" => $key,
+            ],[
+                "value" => $value,
+                "timestamp" => $timestamp
+            ]);
+            return $data_store;
+        }
         // check if length of collection is more than one
         // if($request->count() !== 1){
         //     return ["message" => "invalid request body length"];
