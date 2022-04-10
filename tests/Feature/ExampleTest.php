@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\DataStore;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic test example.
      *
@@ -20,31 +22,62 @@ class ExampleTest extends TestCase
     }
 
     public function test_api_object_post(){
-        $response = $this->json('POST', 'api/object', array(
-                "Car" => "Blue"
-        ))->assertJsonStructure([
+        $data = [
+            "Car" => "Blue"
+        ];
+        $responseFormat = [
             "uid",
             "vc_version_uid",
             "vc_active",
             "key",
             "value",
             "timestamp"
-        ]);
+        ];
+        $response = $this->post('api/object', $data);
+        $response->assertStatus(201)
+            ->assertJsonStructure($responseFormat);
     }
 
     public function test_api_object_get(){
-        $this->json('GET', 'api/object/Car')
-            ->assertJsonStructure([
-                'value'
-            ]);
+        $responseFormat = [
+            "value"
+        ];
+        $data = [
+            "Car" => "Blue"
+        ];
+        $this->post('api/object', $data);
+        $response = $this->get('api/object/Car');
+        $response->assertOk()
+            ->assertJsonStructure($responseFormat);
+    }
+
+    public function test_get_object_by_timestamp(){
+        $firstData = ["Car" => "Blue"];
+        $secondData = ["Car" => "Red"];
+
+        $this->post('api/object', $firstData);
+        $firstObject = DataStore::first();
+
+        $this->post('api/object', $secondData);
+
+        $response = $this->get('api/object/Car?timestamp=' . $firstObject->timestamp);
+        $content = $response->decodeResponseJson();
+        $response->assertOk();
+        $this->assertEquals($firstData['Car'], $content['value']);
     }
 
     public function test_api_get_all(){
-        $this->json('GET', 'api/object/get_all_records')
-            ->assertJsonStructure([[
-                "key",
-                "value",
-                "timestamp"
-            ]]);
+        $responseFormat = [[
+            "key",
+            "value",
+            "timestamp"
+        ]];
+        $data = [
+            "Car" => "Blue"
+        ];
+        $this->post('api/object', $data);
+        $this->get('api/object/get_all_records')
+            ->assertOk()
+            ->assertJsonStructure($responseFormat);
     }
 }
