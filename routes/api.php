@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(DataStoresController::class)->group(function () {
     Route::post('/object', 'create');
-    Route::get('/object/get_all_records', 'index');
-    Route::get('/object/{key}', 'show');
+    Route::group(['middleware' => 'checkApiKey'], function(){
+        Route::get('/object/get_all_records', 'index');
+        Route::get('/object/{key}', 'show');
+    });
 });
