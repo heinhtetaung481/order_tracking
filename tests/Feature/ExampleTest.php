@@ -46,7 +46,9 @@ class ExampleTest extends TestCase
             "Car" => "Blue"
         ];
         $this->post('api/object', $data);
-        $response = $this->get('api/object/Car');
+        $response = $this->withHeaders([
+            'x-api-key' => '123'
+        ])->get('api/object/Car');
         $response->assertOk()
             ->assertJsonStructure($responseFormat);
     }
@@ -60,7 +62,9 @@ class ExampleTest extends TestCase
 
         $this->post('api/object', $secondData);
 
-        $response = $this->get('api/object/Car?timestamp=' . $firstObject->timestamp);
+        $response = $this->withHeaders([
+            'x-api-key' => '123'
+        ])->get('api/object/Car?timestamp=' . $firstObject->timestamp);
         $content = $response->decodeResponseJson();
         $response->assertOk();
         $this->assertEquals($firstData['Car'], $content['value']);
@@ -76,7 +80,9 @@ class ExampleTest extends TestCase
             "Car" => "Blue"
         ];
         $this->post('api/object', $data);
-        $this->get('api/object/get_all_records')
+        $this->withHeaders([
+            'x-api-key' => '123'
+        ])->get('api/object/get_all_records')
             ->assertOk()
             ->assertJsonStructure($responseFormat);
     }
